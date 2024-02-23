@@ -1,17 +1,14 @@
 
-/* 1.Sukurti cikliná vienkryptá sàraðà, realizuojant duomenø ávedimà, áterpimà prieð ir po nurodyto
-elemento, norimo elemento paðalinimà bei didþiausio elemento radimà.Realizuoti funkcijas,
+/* 1. Sukurti ciklini vienkrypti sarasa, realizuojant duomenu ivedima, iterpima pries ir po nurodyto
+elemento, norimo elemento pasalinima bei didziausio elemento radima. Realizuoti funkcijas,
 kurios:
-	a.Pirmus 6 neigiamus skaièius perkelia á dvikryptá cikliná sàraðà.
-
-	b.Apskaièiuoja kiek dvikrypèiame cikliniame sàraðe esanèiø lyginiø elementø pagal
-	absoliuèià reikðmæ suma yra didesnë uþ vienkrypèio ciklinio sàraðo visø nelyginiø
-	elementø sumà.
-
-	c.Panaikina ciklinio sàraðo pirmàjá, viduriná ir paskutiná elementà, ir atspausdina juos
-	ekrane
-
-Pastaba.Ðioje uþduotyje negalima naudoti STL bibliotekø. */
+a. Pirmus 6 neigiamus skaicius perkelia i dvikrypti ciklini sarasa.
+b. Apskaiciuoja kiek dvikrypciame cikliniame sarase esanÄiu lyginiu elementu pagal
+absoliucia reiksme suma yra didesne uÅ¾ vienkrypcio ciklinio saraso visu nelyginiu
+elementÅ³ sumÄ….
+c. Panaikina ciklinio saraso pirmaji, vidurini ir paskutini elementa, ir atspausdina juos
+ekrane
+Pastaba. Sioje uzduotyje negalima naudoti STL biblioteku. */
 
 
 
@@ -42,11 +39,11 @@ struct DvikryptisMazgas {
 };
 
 DvikryptisMazgas* SukurtiDvikryptiMazga(int duomuo) {
-	DvikryptisMazgas* naujasMazgas = new DvikryptisMazgas; // Sukuriamas naujas mazgas naudojant numatytàjá konstruktoriø
-	naujasMazgas->duomuo = duomuo; // Priskiriama duomenø reikðmë
-	naujasMazgas->ankstesnis = nullptr; // Ankstesnis narys nustatomas á nullptr
-	naujasMazgas->kitas = nullptr; // Kitas narys nustatomas á nullptr
-	return naujasMazgas; // Gràþinamas sukurtas mazgas
+	DvikryptisMazgas* naujasMazgas = new DvikryptisMazgas; 
+	naujasMazgas->duomuo = duomuo; 
+	naujasMazgas->ankstesnis = nullptr; 
+	naujasMazgas->kitas = nullptr; 
+	return naujasMazgas; 
 }
 
 void PridetiElementa(Mazgas*& pradzia, int duomuo) {
@@ -490,7 +487,7 @@ int main(){
 			cout << "Programa baigiama..." << endl;
 		}
 		else {
-			cout << "Neteisingas pasirinkimas. Bandykite dar kartà." << endl;
+			cout << "Neteisingas pasirinkimas. Bandykite dar kartï¿½." << endl;
 		}
 
 		cout << endl << "Paspauskite bet kuri klavisa norint testi..." << endl;

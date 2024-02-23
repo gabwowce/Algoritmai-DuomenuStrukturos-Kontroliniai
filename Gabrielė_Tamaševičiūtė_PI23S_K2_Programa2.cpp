@@ -1,15 +1,15 @@
-/* 2. Sukurti sàrağà, realizuojant duomenø ávedimà, áterpimà prieğ ir po nurodyto elemento, norimo
-elemento pağalinimà bei didşiausio elemento radimà. Realizuoti funkcijas, kurios:
+/* 2. Sukurti sarasa, realizuojant duomenu ivedima, iterpima pries ir po nurodyto elemento, norimo
+elemento pasalinima bei didziausio elemento radima. Realizuoti funkcijas, kurios:
 
-	a. Visus skaièius nuo paskutiniojo 0 perkelia á vienkryptá cikliná sàrağà.
+a. Visus skaicius nuo paskutiniojo 0 perkelia i vienkrypti ciklini sarasa.
 
-	b. Apskaièiuoja kiek cikliniame sàrağe esanèiø elementø kurie yra didesná uş dvikrypèio
-	sàrağo visø elementø vidurká.
+b. ApskaiÄiuoja kiek cikliniame sarase esanÄiu elementu kurie yra didesni uÅ¾ dvikrypcio
+saraso visu elementu vidurki.
 
-	c. Panaikina ciklinio sàrağo visus elementus esanèios tarp treèiojo ir prieğpaskutinio
-	elemento bei atspausdina juos ekrane.
+c. Panaikina ciklinio saraso visus elementus esancios tarp treciojo ir priespaskutinio
+elemento bei atspausdina juos ekrane.
 
-Pastaba. Ğioje uşduotyje galima naudoti STL bibliotekas. */
+Pastaba. Sioje uzduotyje galima naudoti STL bibliotekas. */
 
 #include <iostream>
 #include <list>
@@ -164,17 +164,17 @@ void AtnaujintiSarasus(list<int>& dvikryptisSarasas, list<int>& ciklinisSarasas)
     cout << endl;
     cout << "\033[96mDvikryptis Sarasas:\033[0m ";
     if (!dvikryptisSarasas.empty()) {
-        isvestiSarasa(dvikryptisSarasas);  // Èia naudojate dvikryptisSarasas
+        isvestiSarasa(dvikryptisSarasas);  
     }
     else {
-        cout << "(tuscias)" << endl;  // Jei sàrağas tuğèias, spausdinate praneğimà
+        cout << "(tuscias)" << endl;  
     }
     cout << "\033[96mCiklinis Sarasas:\033[0m ";
     if (!ciklinisSarasas.empty()) {
-        isvestiSarasa(ciklinisSarasas);  // Èia naudojate ciklinisSarasas
+        isvestiSarasa(ciklinisSarasas);  
     }
     else {
-        cout << "(tuscias)" << endl;  // Jei sàrağas tuğèias, spausdinate praneğimà
+        cout << "(tuscias)" << endl;  
     }
     cout << endl;
 }
@@ -238,7 +238,7 @@ int main() {
         if (pasirinkimas == 4) {
             int didziausias = rastiDidziausia(dvikryptisSarasas);
             if (didziausias != -1) {
-                cout << "\033[92mDidziausias elementas ssrağe yra: \033[0m" << didziausias << endl;
+                cout << "\033[92mDidziausias elementas ssraï¿½e yra: \033[0m" << didziausias << endl;
             }
             else {
                 cout << "\033[91mSarasas tuscias.\033[0m" << endl;
