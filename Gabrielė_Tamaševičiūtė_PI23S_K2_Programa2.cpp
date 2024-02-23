@@ -1,4 +1,4 @@
-/* 2. Sukurti sarasa, realizuojant duomenu ivedima, iterpima pries ir po nurodyto elemento, norimo
+﻿/* 2. Sukurti sarasa, realizuojant duomenu ivedima, iterpima pries ir po nurodyto elemento, norimo
 elemento pasalinima bei didziausio elemento radima. Realizuoti funkcijas, kurios:
 
 a. Visus skaicius nuo paskutiniojo 0 perkelia i vienkrypti ciklini sarasa.
@@ -69,7 +69,7 @@ void iterptiPo(list<int>& sarasas, int nurodytasElementas, int naujasElementas) 
     auto it = find(sarasas.begin(), sarasas.end(), nurodytasElementas);
 
     if (it != sarasas.end()) {
-        sarasas.insert(next(it), naujasElementas);  
+        sarasas.insert(next(it), naujasElementas);
     }
     else {
         cout << "\033[91mElementas " << nurodytasElementas << " nerastas.\033[0m\n";
@@ -82,21 +82,31 @@ void pasalintiElementa(list<int>& sarasas, int salinamasElementas) {
 
 int rastiDidziausia(const list<int>& sarasas) {
     if (sarasas.empty()) {
-        return -1; 
+        return -1;
     }
 
     auto maxIt = max_element(sarasas.begin(), sarasas.end());
-    return *maxIt; 
+    return *maxIt;
 }
+
+
+
 
 void perkeltiElementusPoNulio(list<int>& dvikryptisSarasas, list<int>& ciklinisSarasas) {
     auto rit = find(dvikryptisSarasas.rbegin(), dvikryptisSarasas.rend(), 0);
 
     if (rit != dvikryptisSarasas.rend()) {
+
         auto it = next(rit).base();
 
+        if (it != dvikryptisSarasas.end()) {
+
+            ++it;
+        }
+
         ciklinisSarasas.insert(ciklinisSarasas.end(), it, dvikryptisSarasas.end());
-        cout << "\033[92mElementai po paskutiniojo 0 perkelti i ciklini sarasa.\033[0m" << endl;
+
+        cout << "\033[92mElementai po paskutiniojo 0 perkelti i ciklini sarasa, neiskaitant 0.\033[0m" << endl;
     }
     else {
         cout << "Nerasta 0. Elementai nebuvo perkelti.";
@@ -104,9 +114,10 @@ void perkeltiElementusPoNulio(list<int>& dvikryptisSarasas, list<int>& ciklinisS
 }
 
 
+
 int apskaiciuotiVidurki(const list<int>& sarasas) {
     if (sarasas.empty()) {
-        return 0;  
+        return 0;
     }
 
     int suma = accumulate(sarasas.begin(), sarasas.end(), 0);
@@ -123,8 +134,8 @@ void panaikintiTarpiniusElementus(list<int>& sarasas) {
     isvestiSarasa(sarasas);
 
     if (sarasas.size() > 3) {
-        auto pradzia = next(sarasas.begin(), 2);  
-        auto pabaiga = prev(sarasas.end(), 2);    
+        auto pradzia = next(sarasas.begin(), 2);
+        auto pabaiga = prev(sarasas.end(), 2);
 
         sarasas.erase(next(pradzia), pabaiga);
 
@@ -157,24 +168,24 @@ void rodytiPagrindiniMeniu() {
 }
 
 void IsvalytiEkrana() {
-    system("cls");  
+    system("cls");
 }
 
 void AtnaujintiSarasus(list<int>& dvikryptisSarasas, list<int>& ciklinisSarasas) {
     cout << endl;
     cout << "\033[96mDvikryptis Sarasas:\033[0m ";
     if (!dvikryptisSarasas.empty()) {
-        isvestiSarasa(dvikryptisSarasas);  
+        isvestiSarasa(dvikryptisSarasas);
     }
     else {
-        cout << "(tuscias)" << endl;  
+        cout << "(tuscias)" << endl;
     }
     cout << "\033[96mCiklinis Sarasas:\033[0m ";
     if (!ciklinisSarasas.empty()) {
-        isvestiSarasa(ciklinisSarasas);  
+        isvestiSarasa(ciklinisSarasas);
     }
     else {
-        cout << "(tuscias)" << endl;  
+        cout << "(tuscias)" << endl;
     }
     cout << endl;
 }
@@ -270,6 +281,6 @@ int main() {
 
     } while (pasirinkimas != 8);
 
-    cout << endl <<"Programa baigiama..." << endl;
+    cout << endl << "Programa baigiama..." << endl;
     return 0;
 }
