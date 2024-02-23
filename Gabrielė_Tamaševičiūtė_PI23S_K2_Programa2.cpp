@@ -81,22 +81,19 @@ void pasalintiElementa(list<int>& sarasas, int salinamasElementas) {
 
 int rastiDidziausia(const list<int>& sarasas) {
     if (sarasas.empty()) {
-        return -1; // Gràþinama -1, jei sàraðas yra tuðèias
+        return -1; 
     }
 
     auto maxIt = max_element(sarasas.begin(), sarasas.end());
-    return *maxIt; // Dereferencijuojame iteratoriø, kad gautume didþiausio elemento reikðmæ
+    return *maxIt; 
 }
 
 void perkeltiElementusPoNulio(list<int>& dvikryptisSarasas, list<int>& ciklinisSarasas) {
     auto rit = find(dvikryptisSarasas.rbegin(), dvikryptisSarasas.rend(), 0);
 
-    // Jei rasti 0, perkelti elementus á cikliná sàraðà
     if (rit != dvikryptisSarasas.rend()) {
-        // Konvertuojame reversiná iteratoriø á áprastà iteratoriø
         auto it = next(rit).base();
 
-        // Perkeliami elementai á cikliná sàraðà
         ciklinisSarasas.insert(ciklinisSarasas.end(), it, dvikryptisSarasas.end());
         cout << "\033[92mElementai po paskutiniojo 0 perkelti i ciklini sarasa.\033[0m" << endl;
     }
@@ -108,7 +105,7 @@ void perkeltiElementusPoNulio(list<int>& dvikryptisSarasas, list<int>& ciklinisS
 
 int apskaiciuotiVidurki(const list<int>& sarasas) {
     if (sarasas.empty()) {
-        return 0;  // Gràþinamas 0, jei sàraðas tuðèias
+        return 0;  
     }
 
     int suma = accumulate(sarasas.begin(), sarasas.end(), 0);
@@ -122,17 +119,14 @@ int kiekDidesniuUzVidurki(const list<int>& sarasas, int vidurkis) {
 
 void panaikintiTarpiniusElementus(list<int>& sarasas) {
     if (sarasas.size() <= 3) {
-        return;  // Nëra pakankamai elementø, kuriuos bûtø galima paðalinti
+        return;  
     }
 
-    auto pradzia = next(sarasas.begin(), 2);  // Treèiasis elementas
-    auto pabaiga = prev(sarasas.end(), 2);    // Prieðpaskutinis elementas
+    auto pradzia = next(sarasas.begin(), 2);  
+    auto pabaiga = prev(sarasas.end(), 2);   
 
-    // Panaikiname elementus nuo pradþios iki pabaigos (neáskaitant pabaigos)
     sarasas.erase(next(pradzia), pabaiga);
-
-    // Kadangi ciklinis sàraðas yra simuliuojamas, realaus ciklo pabaigos paðalinti negalima, 
-    // bet ði funkcija veiks, jei sàraðas nëra tikrai ciklinis.
+    cout << "Tarp treciojo ir priespaskutinio ciklinio saraso elementai buvo panaikinti.";
 }
 
 
@@ -243,7 +237,7 @@ int main() {
             int vidurkis = apskaiciuotiVidurki(dvikryptisSarasas);
             int didesniuUzVidurkiSkaicius = kiekDidesniuUzVidurki(ciklinisSarasas, vidurkis);
 
-            cout << "\033[92mCikliniame sarase elementu, kurie yra didesni uþ dvikrypcio saraso vidurki (" << vidurkis << "), yra: \033[0m" << didesniuUzVidurkiSkaicius << endl;
+            cout << "\033[92mCikliniame sarase elementu skaicius, kurie yra didesni uz dvikrypcio saraso vidurki (" << vidurkis << "), yra: \033[0m" << didesniuUzVidurkiSkaicius << endl;
             lauktiVartotojo();
         }
 
