@@ -46,6 +46,7 @@ void duomenuIvedimas(list<int>& sarasas) {
 }
 
 void isvestiSarasa(const list<int>& sarasas) {
+
     for (int elementas : sarasas) {
         cout << elementas << " ";
     }
@@ -118,15 +119,23 @@ int kiekDidesniuUzVidurki(const list<int>& sarasas, int vidurkis) {
 }
 
 void panaikintiTarpiniusElementus(list<int>& sarasas) {
-    if (sarasas.size() <= 3) {
-        return;  
+    cout << "Pradinis ciklinio saraso turinys: ";
+    isvestiSarasa(sarasas);
+
+    if (sarasas.size() > 3) {
+        auto pradzia = next(sarasas.begin(), 2);  
+        auto pabaiga = prev(sarasas.end(), 2);    
+
+        sarasas.erase(next(pradzia), pabaiga);
+
+        cout << "Tarp treciojo ir priespaskutinio elemento esantys elementai buvo panaikinti.\n";
+    }
+    else {
+        cout << "Sarase per mazai elementu, kad butu galima panaikinti elementus.\n";
     }
 
-    auto pradzia = next(sarasas.begin(), 2);  
-    auto pabaiga = prev(sarasas.end(), 2);   
-
-    sarasas.erase(next(pradzia), pabaiga);
-    cout << "Tarp treciojo ir priespaskutinio ciklinio saraso elementai buvo panaikinti.";
+    cout << "Atnaujintas ciklinio saraso turinys: ";
+    isvestiSarasa(sarasas);
 }
 
 
@@ -154,11 +163,22 @@ void IsvalytiEkrana() {
 void AtnaujintiSarasus(list<int>& dvikryptisSarasas, list<int>& ciklinisSarasas) {
     cout << endl;
     cout << "\033[96mDvikryptis Sarasas:\033[0m ";
-    isvestiSarasa(dvikryptisSarasas);  
+    if (!dvikryptisSarasas.empty()) {
+        isvestiSarasa(dvikryptisSarasas);  // Èia naudojate dvikryptisSarasas
+    }
+    else {
+        cout << "(tuscias)" << endl;  // Jei sàrağas tuğèias, spausdinate praneğimà
+    }
     cout << "\033[96mCiklinis Sarasas:\033[0m ";
-    isvestiSarasa(ciklinisSarasas);  
+    if (!ciklinisSarasas.empty()) {
+        isvestiSarasa(ciklinisSarasas);  // Èia naudojate ciklinisSarasas
+    }
+    else {
+        cout << "(tuscias)" << endl;  // Jei sàrağas tuğèias, spausdinate praneğimà
+    }
     cout << endl;
 }
+
 
 void lauktiVartotojo() {
     cout << "\nPaspauskite bet kuri klavisa norint testi...";
@@ -250,6 +270,6 @@ int main() {
 
     } while (pasirinkimas != 8);
 
-    cout << "Programa baigiama..." << endl;
+    cout << endl <<"Programa baigiama..." << endl;
     return 0;
 }
