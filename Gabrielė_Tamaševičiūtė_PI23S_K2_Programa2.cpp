@@ -20,18 +20,16 @@ Pastaba. Ðioje uþduotyje galima naudoti STL bibliotekas. */
 
 using namespace std;
 
-list<int> ciklinisSarasas;
-
-void isvalytiIvesti() {
-    cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-}
-
-
 
 void pridetiElementa(list<int>& sarasas, int elementas) {
     sarasas.push_back(elementas);
 }
+
+void isvalytiIvesti() {
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+
 
 void duomenuIvedimas(list<int>& sarasas) {
     int elementas;
@@ -48,12 +46,6 @@ void duomenuIvedimas(list<int>& sarasas) {
 }
 
 void isvestiSarasa(const list<int>& sarasas) {
-    if (sarasas.empty()) {
-        cout << "\033[93mSarasas yra tuscias.\033[0m" << endl;
-        return;
-    }
-
-    cout << "\033[92mDabartinis sarasas:\033[0m ";
     for (int elementas : sarasas) {
         cout << elementas << " ";
     }
@@ -63,87 +55,90 @@ void isvestiSarasa(const list<int>& sarasas) {
 
 void iterptiPries(list<int>& sarasas, int nurodytasElementas, int naujasElementas) {
     auto it = find(sarasas.begin(), sarasas.end(), nurodytasElementas);
+
     if (it != sarasas.end()) {
         sarasas.insert(it, naujasElementas);
     }
     else {
-        cout << "Elementas nerastas. Naujas elementas neiterptas." << endl;
+        cout << "\033[91mElementas " << nurodytasElementas << " nerastas.\033[0m\n";
     }
 }
 
 void iterptiPo(list<int>& sarasas, int nurodytasElementas, int naujasElementas) {
     auto it = find(sarasas.begin(), sarasas.end(), nurodytasElementas);
+
     if (it != sarasas.end()) {
-        sarasas.insert(next(it), naujasElementas);
+        sarasas.insert(next(it), naujasElementas);  
     }
     else {
-        cout << "Elementas nerastas. Naujas elementas neiterptas." << endl;
+        cout << "\033[91mElementas " << nurodytasElementas << " nerastas.\033[0m\n";
     }
 }
 
-void pasalintiElementa(list<int>& sarasas, int elementasPasalinimui) {
-    sarasas.remove(elementasPasalinimui);
+void pasalintiElementa(list<int>& sarasas, int salinamasElementas) {
+    sarasas.remove(salinamasElementas);
 }
 
-int rastiDidziausia(list<int>& sarasas) {
-    if (!sarasas.empty()) {
-        return *max_element(sarasas.begin(), sarasas.end());
+int rastiDidziausia(const list<int>& sarasas) {
+    if (sarasas.empty()) {
+        return -1; // Gràþinama -1, jei sàraðas yra tuðèias
+    }
+
+    auto maxIt = max_element(sarasas.begin(), sarasas.end());
+    return *maxIt; // Dereferencijuojame iteratoriø, kad gautume didþiausio elemento reikðmæ
+}
+
+void perkeltiElementusPoNulio(list<int>& dvikryptisSarasas, list<int>& ciklinisSarasas) {
+    auto rit = find(dvikryptisSarasas.rbegin(), dvikryptisSarasas.rend(), 0);
+
+    // Jei rasti 0, perkelti elementus á cikliná sàraðà
+    if (rit != dvikryptisSarasas.rend()) {
+        // Konvertuojame reversiná iteratoriø á áprastà iteratoriø
+        auto it = next(rit).base();
+
+        // Perkeliami elementai á cikliná sàraðà
+        ciklinisSarasas.insert(ciklinisSarasas.end(), it, dvikryptisSarasas.end());
+        cout << "\033[92mElementai po paskutiniojo 0 perkelti i ciklini sarasa.\033[0m" << endl;
     }
     else {
-        cout << "Sarasas tuscias." << endl;
-        return -1; 
+        cout << "Nerasta 0. Elementai nebuvo perkelti.";
     }
 }
 
-void perkeltiElementusPoNulio(list<int>& dvikryptisSarasas, list<int>& ciklinis) {
-    auto iter = find(dvikryptisSarasas.rbegin(), dvikryptisSarasas.rend(), 0);  
-    bool rastaNulis = (iter != dvikryptisSarasas.rend());
-
-    if (rastaNulis) {
-        iter++;  
-        for (; iter != dvikryptisSarasas.rend(); ++iter) {
-            ciklinis.push_back(*iter);  
-        }
-    }
-    else {
-        cout << "Sarase 0 nerasta, elementai neperkelti." << endl;
-    }
-}
 
 int apskaiciuotiVidurki(const list<int>& sarasas) {
-    if (sarasas.empty()) return 0;  
+    if (sarasas.empty()) {
+        return 0;  // Gràþinamas 0, jei sàraðas tuðèias
+    }
 
     int suma = accumulate(sarasas.begin(), sarasas.end(), 0);
-    return suma / sarasas.size();
+    int vidurkis = suma / sarasas.size();
+    return vidurkis;
 }
 
-int kiekDidesniuUzVidurki(const list<int>& ciklinisSarasas, int vidurkis) {
-    return count_if(ciklinisSarasas.begin(), ciklinisSarasas.end(), [vidurkis](int elem) { return elem > vidurkis; });
+int kiekDidesniuUzVidurki(const list<int>& sarasas, int vidurkis) {
+    return count_if(sarasas.begin(), sarasas.end(), [vidurkis](int elem) { return elem > vidurkis; });
 }
 
 void panaikintiTarpiniusElementus(list<int>& sarasas) {
-    if (sarasas.size() < 4) {
-        cout << "\033[93mSarase per mazai elementu, kad butu galima panaikinti tarpinius.\033[0m\n";
-        return;
+    if (sarasas.size() <= 3) {
+        return;  // Nëra pakankamai elementø, kuriuos bûtø galima paðalinti
     }
 
-    auto it = sarasas.begin();
-    advance(it, 2);  
+    auto pradzia = next(sarasas.begin(), 2);  // Treèiasis elementas
+    auto pabaiga = prev(sarasas.end(), 2);    // Prieðpaskutinis elementas
 
-    auto priesPaskutinisIt = sarasas.end();
-    advance(priesPaskutinisIt, -2);  
+    // Panaikiname elementus nuo pradþios iki pabaigos (neáskaitant pabaigos)
+    sarasas.erase(next(pradzia), pabaiga);
 
-    cout << "\033[92mPanaikinti elementai:\033[0m ";
-    while (it != priesPaskutinisIt) {
-        cout << *it << " ";
-        it = sarasas.erase(it);  
-    }
-    cout << endl;
+    // Kadangi ciklinis sàraðas yra simuliuojamas, realaus ciklo pabaigos paðalinti negalima, 
+    // bet ði funkcija veiks, jei sàraðas nëra tikrai ciklinis.
 }
+
 
 void rodytiPagrindiniMeniu() {
     cout << "\n\033[96m***********************************\033[0m\n";
-    cout << "\033[96m*         Saraso Meniu         *\033[0m\n";
+    cout << "\033[96m*     Dvikrypcio Saraso Meniu     *\033[0m\n";
     cout << "\033[96m***********************************\033[0m\n";
     cout << "\033[93mElementu manipuliavimas:\033[0m\n";
     cout << "  \033[92m1. Iterpti elementa pries nurodyta\033[0m\n";
@@ -155,17 +150,26 @@ void rodytiPagrindiniMeniu() {
     cout << "  \033[92m6. Apskaiciuoja kiek cikliniame sarase esanciu elementu kurie yra didesni uz dvikrypcio saraso visu elementu vidurki.\033[0m\n";
     cout << "  \033[92m7. Panaikinti elementus tarp treciojo ir priespaskutinio cikliniame sarase\033[0m\n";
     cout << "\033[91m8. Baigti darba\033[0m\n\n";
-    cout << "\033[97mJusu pasirinkimas:\033[0m ";
+    cout << "\033[97mJUSU PASIRINKIMAS:\033[0m ";
 }
 
 void IsvalytiEkrana() {
-    system("cls"); 
+    system("cls");  
+}
+
+void AtnaujintiSarasus(list<int>& dvikryptisSarasas, list<int>& ciklinisSarasas) {
+    cout << endl;
+    cout << "\033[96mDvikryptis Sarasas:\033[0m ";
+    isvestiSarasa(dvikryptisSarasas);  
+    cout << "\033[96mCiklinis Sarasas:\033[0m ";
+    isvestiSarasa(ciklinisSarasas);  
+    cout << endl;
 }
 
 void lauktiVartotojo() {
     cout << "\nPaspauskite bet kuri klavisa norint testi...";
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');  
-    cin.get();  
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cin.get();
 }
 
 int main() {
@@ -173,12 +177,13 @@ int main() {
     list<int> ciklinisSarasas;
     int pasirinkimas;
 
-    IsvalytiEkrana(); 
-    cout << "Dabar iveskite saraso elementus. Ivedus ne skaiciu, duomenu ivedimas bus baigtas." << endl;
+    AtnaujintiSarasus(dvikryptisSarasas, ciklinisSarasas);
+    cout << "Dabar iveskite dvikrypcio saraso elementus. Ivedus ne skaiciu, duomenu ivedimas bus baigtas." << endl;
     duomenuIvedimas(dvikryptisSarasas);
 
     do {
-        IsvalytiEkrana(); 
+        IsvalytiEkrana();
+        AtnaujintiSarasus(dvikryptisSarasas, ciklinisSarasas);
         rodytiPagrindiniMeniu();
         cin >> pasirinkimas;
 
@@ -190,8 +195,8 @@ int main() {
             cin >> naujasElementas;
 
             iterptiPries(dvikryptisSarasas, nurodytasElementas, naujasElementas);
-            isvestiSarasa(dvikryptisSarasas);
-            lauktiVartotojo();  
+            AtnaujintiSarasus(dvikryptisSarasas, ciklinisSarasas);
+            lauktiVartotojo();
         }
         if (pasirinkimas == 2) {
             int nurodytasElementas, naujasElementas;
@@ -201,7 +206,7 @@ int main() {
             cin >> naujasElementas;
 
             iterptiPo(dvikryptisSarasas, nurodytasElementas, naujasElementas);
-            isvestiSarasa(dvikryptisSarasas);
+            AtnaujintiSarasus(dvikryptisSarasas, ciklinisSarasas);
             lauktiVartotojo();
         }
         if (pasirinkimas == 3) {
@@ -212,47 +217,42 @@ int main() {
             pasalintiElementa(dvikryptisSarasas, salinamasElementas);
             cout << "\033[92mElementai su reiksme " << salinamasElementas << " buvo pasalinti.\033[0m" << endl;
 
-            isvestiSarasa(dvikryptisSarasas);
-            lauktiVartotojo(); 
+            AtnaujintiSarasus(dvikryptisSarasas, ciklinisSarasas);
+            lauktiVartotojo();
         }
 
         if (pasirinkimas == 4) {
             int didziausias = rastiDidziausia(dvikryptisSarasas);
-            if (didziausias != -1) {  
+            if (didziausias != -1) {
                 cout << "\033[92mDidziausias elementas ssraðe yra: \033[0m" << didziausias << endl;
             }
             else {
                 cout << "\033[91mSarasas tuscias.\033[0m" << endl;
             }
-
-            lauktiVartotojo();  
+            AtnaujintiSarasus(dvikryptisSarasas, ciklinisSarasas);
+            lauktiVartotojo();
         }
 
         if (pasirinkimas == 5) {
-            list<int> ciklinisSarasas;  
             perkeltiElementusPoNulio(dvikryptisSarasas, ciklinisSarasas);
-
-            cout << "\033[92mElementai po paskutiniojo 0 perkelti i ciklini ssrasa.\033[0m" << endl;
-            cout << "\033[93mCiklinio saraso elementai:\033[0m ";
-            isvestiSarasa(ciklinisSarasas);  
-
-            lauktiVartotojo(); 
+            AtnaujintiSarasus(dvikryptisSarasas, ciklinisSarasas);
+            lauktiVartotojo();
         }
 
         if (pasirinkimas == 6) {
             int vidurkis = apskaiciuotiVidurki(dvikryptisSarasas);
             int didesniuUzVidurkiSkaicius = kiekDidesniuUzVidurki(ciklinisSarasas, vidurkis);
 
-            cout << "\033[92mCikliniame sàraðe elementø, kurie yra didesni uþ dvikrypèio sàraðo vidurká (" << vidurkis << "), yra: \033[0m" << didesniuUzVidurkiSkaicius << endl;
-            lauktiVartotojo();  
+            cout << "\033[92mCikliniame sarase elementu, kurie yra didesni uþ dvikrypcio saraso vidurki (" << vidurkis << "), yra: \033[0m" << didesniuUzVidurkiSkaicius << endl;
+            lauktiVartotojo();
         }
 
         if (pasirinkimas == 7) {
-            panaikintiTarpiniusElementus(ciklinisSarasas); 
-            isvestiSarasa(ciklinisSarasas);  
-            lauktiVartotojo();  
+            panaikintiTarpiniusElementus(ciklinisSarasas);
+            AtnaujintiSarasus(dvikryptisSarasas, ciklinisSarasas);
+            lauktiVartotojo();
         }
-        
+
 
     } while (pasirinkimas != 8);
 
