@@ -25,16 +25,16 @@ Mazgas* SukurtiMazga(int duomuo) {
 void PridetiElementa(Mazgas*& pradzia, int duomuo) {
 	Mazgas* naujasMazgas = SukurtiMazga(duomuo);
 	if (pradzia == nullptr) {
-		pradzia = naujasMazgas; // Sàraðas yra tuðèias, todël naujas mazgas tampa pradþia
+		pradzia = naujasMazgas; 
 	}
 	else {
 		Mazgas* dabartinis = pradzia;
 		while (dabartinis->kitas != nullptr) {
-			dabartinis = dabartinis->kitas; // Eina per sàraðà iki paskutinio elemento
+			dabartinis = dabartinis->kitas; 
 		}
-		dabartinis->kitas = naujasMazgas; // Paskutiniojo mazgo 'kitas' nurodo á naujai sukurtà mazgà
+		dabartinis->kitas = naujasMazgas; 
 	}
-	naujasMazgas->kitas = nullptr; // Uþtikrinama, kad naujojo mazgo 'kitas' bûtø nullptr
+	naujasMazgas->kitas = nullptr; 
 }
 
 
@@ -45,7 +45,7 @@ void apdorojimas(Mazgas* pradzia) {
 	int didziausias = pradzia->duomuo;
 	Mazgas* dabartinis = pradzia;
 
-	// Rasti didþiausià skaièiø
+	// Rasti didÃ¾iausiÃ  skaiÃ¨iÃ¸
 	while (dabartinis != nullptr) {
 		if (dabartinis->duomuo > didziausias) {
 			didziausias = dabartinis->duomuo;
@@ -53,7 +53,7 @@ void apdorojimas(Mazgas* pradzia) {
 		dabartinis = dabartinis->kitas;
 	}
 
-	// Padvigubinti maþesnius skaièius nei didþiausias
+
 	dabartinis = pradzia;
 	while (dabartinis != nullptr) {
 		if (dabartinis->duomuo < didziausias) {
@@ -70,7 +70,7 @@ void RodytiVisaSarasa(Mazgas* pradzia) {
 	}
 
 	Mazgas* dabartinis = pradzia;
-	while (dabartinis != nullptr) {  // Tæsiamas ciklas, kol nepasiekiamas sàraðo pabaigos NULL
+	while (dabartinis != nullptr) {  
 		cout << dabartinis->duomuo << " ";
 		dabartinis = dabartinis->kitas;
 	}
