@@ -1,4 +1,4 @@
-﻿/* 2. Pašalinti paskutinį lyginį elementą.
+/*Pašalinti paskutinį lyginį elementą.
 
 Visuose uzdaviniuose reikia naudoti vienkrypcius sarasus bei funkcijas, kuriose turi buti
 realizuoti prasomi veiksmai. Taip turi buti realizuotos ivedimo bei spausdinimo funkcijos.*/
@@ -23,16 +23,16 @@ Mazgas* SukurtiMazga(int duomuo) {
 void PridetiElementa(Mazgas*& pradzia, int duomuo) {
 	Mazgas* naujasMazgas = SukurtiMazga(duomuo);
 	if (pradzia == nullptr) {
-		pradzia = naujasMazgas; 
+		pradzia = naujasMazgas;
 	}
 	else {
 		Mazgas* dabartinis = pradzia;
 		while (dabartinis->kitas != nullptr) {
-			dabartinis = dabartinis->kitas; 
+			dabartinis = dabartinis->kitas;
 		}
 		dabartinis->kitas = naujasMazgas;
 	}
-	naujasMazgas->kitas = nullptr; 
+	naujasMazgas->kitas = nullptr;
 }
 
 
@@ -43,7 +43,7 @@ void RodytiVisaSarasa(Mazgas* pradzia) {
 	}
 
 	Mazgas* dabartinis = pradzia;
-	while (dabartinis != nullptr) {  
+	while (dabartinis != nullptr) {
 		cout << dabartinis->duomuo << " ";
 		dabartinis = dabartinis->kitas;
 	}
@@ -78,7 +78,7 @@ void PasalintiPaskutiniLyginiElementa(Mazgas*& pradzia) {
 		else {
 			pradzia = paskutinisLyginis->kitas;
 		}
-		delete paskutinisLyginis; 
+		delete paskutinisLyginis;
 	}
 }
 
@@ -99,12 +99,12 @@ int main() {
 		PridetiElementa(pradzia, num);
 	}
 
-	cout << "Sarasas dabar atrodo taip: ";
+	cout << "\nSarasas dabar atrodo taip: ";
 	RodytiVisaSarasa(pradzia);
 
 	PasalintiPaskutiniLyginiElementa(pradzia);
 
-	cout << "Sarasas po paskutintojo lyginio skaiciaus pasalinimo atrodo taip: ";
+	cout << "\nSarasas po paskutintojo lyginio skaiciaus pasalinimo atrodo taip: ";
 	RodytiVisaSarasa(pradzia);
 
 
