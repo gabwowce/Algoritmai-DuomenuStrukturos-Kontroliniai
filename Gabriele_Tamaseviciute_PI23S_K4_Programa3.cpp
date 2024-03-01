@@ -5,6 +5,7 @@
 Visuose uzdaviniuose reikia naudoti vienkrypcius sarasus bei funkcijas, kuriose turi buti
 realizuoti prasomi veiksmai. Taip turi buti realizuotos ivedimo bei spausdinimo funkcijos.
 */
+
 #include <iostream>
 
 using namespace std;
@@ -54,24 +55,32 @@ void RodytiVisaSarasa(Mazgas* pradzia) {
 void IterptiSkaiciuPoLyginiuNelyginiuIndeksu(Mazgas*& pradzia, int x) {
 	if (pradzia == nullptr) {
 		cout << "Sarasas yra tuscias. Nera ka iterpti." << endl;
+		return;
 	}
 
 	int indeksas = 1; 
 	Mazgas* dabartinis = pradzia;
+
 	while (dabartinis != nullptr) {
-		if (dabartinis->duomuo % 2 == 0 && indeksas % 2 == 1) { 
+	
+		if (dabartinis->duomuo % 2 == 0 && indeksas % 2 != 0) {
 			Mazgas* naujasMazgas = SukurtiMazga(x);
-			naujasMazgas->kitas = dabartinis->kitas; 
-			dabartinis->kitas = naujasMazgas; 
-			dabartinis = naujasMazgas->kitas; 
+			naujasMazgas->kitas = dabartinis->kitas;
+			dabartinis->kitas = naujasMazgas;
+
 			
+			dabartinis = naujasMazgas->kitas;
+			indeksas++; 
 		}
 		else {
-			dabartinis = dabartinis->kitas; 
-		}
 		
+			dabartinis = dabartinis->kitas;
+			indeksas++;
+		}
+		 
 	}
 }
+
 
 
 
@@ -97,7 +106,7 @@ int main() {
 	cout << "\nIveskite skaiciu kuri norite iterpti po visu lyginiu elementu, kuriu indeksai yra nelyginiai: ";
 	cin >> x;
 	IterptiSkaiciuPoLyginiuNelyginiuIndeksu(pradzia, x);
-	
+
 
 	cout << "Naujas sarasas atrodo taip: ";
 	RodytiVisaSarasa(pradzia);
