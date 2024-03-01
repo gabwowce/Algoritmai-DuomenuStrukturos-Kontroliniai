@@ -18,23 +18,23 @@ struct Mazgas {
 Mazgas* SukurtiMazga(int duomuo) {
 	Mazgas* newMazgas = new Mazgas;
 	newMazgas->duomuo = duomuo;
-	newMazgas->kitas = nullptr; 
+	newMazgas->kitas = nullptr;
 	return newMazgas;
 }
 
 void PridetiElementa(Mazgas*& pradzia, int duomuo) {
 	Mazgas* naujasMazgas = SukurtiMazga(duomuo);
 	if (pradzia == nullptr) {
-		pradzia = naujasMazgas; 
+		pradzia = naujasMazgas;
 	}
 	else {
 		Mazgas* dabartinis = pradzia;
 		while (dabartinis->kitas != nullptr) {
-			dabartinis = dabartinis->kitas; 
+			dabartinis = dabartinis->kitas;
 		}
-		dabartinis->kitas = naujasMazgas; 
+		dabartinis->kitas = naujasMazgas;
 	}
-	naujasMazgas->kitas = nullptr; 
+	naujasMazgas->kitas = nullptr;
 }
 
 
@@ -70,7 +70,7 @@ void RodytiVisaSarasa(Mazgas* pradzia) {
 	}
 
 	Mazgas* dabartinis = pradzia;
-	while (dabartinis != nullptr) {  
+	while (dabartinis != nullptr) {
 		cout << dabartinis->duomuo << " ";
 		dabartinis = dabartinis->kitas;
 	}
@@ -88,12 +88,12 @@ int main() {
 
 	cout << "Iveskite " << N << " sveikuosius skaicius:" << endl;
 	for (int i = 0; i < N; i++) {
-		cout << "Iveskite " << i + 1 << "-aji skaiciu: "; 
+		cout << "Iveskite " << i + 1 << "-aji skaiciu: ";
 		cin >> num;
 		PridetiElementa(pradzia, num);
 	}
 
-	cout << "Sarasas dabar atrodo taip: ";
+	cout << "\nSarasas dabar atrodo taip: ";
 	RodytiVisaSarasa(pradzia);
 
 	apdorojimas(pradzia);
