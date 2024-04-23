@@ -24,8 +24,8 @@ void sujungtiTarpus(Mazgas*& galva) {
         if (dabartinis->duomenys == ' ' && dabartinis->kitas->duomenys == ' ') {
             Mazgas* temp = dabartinis->kitas;
             dabartinis->kitas = dabartinis->kitas->kitas;
-            if (dabartinis->kitas != nullptr) { // Patikriname, ar nesame pasiekæ sàrağo galo
-                dabartinis->kitas->ankstesnis = dabartinis; // Atnaujiname sekantá mazgà, kad jis rodytø atgal á dabartiná
+            if (dabartinis->kitas != nullptr) { // Patikriname, ar nesame pasieke saraso galo
+                dabartinis->kitas->ankstesnis = dabartinis; // Atnaujiname sekanti mazga, kad jis rodytu atgal i dabartini
             }
             delete temp;
         }
@@ -39,7 +39,7 @@ void sujungtiTarpus(Mazgas*& galva) {
 
 
 void pasalintiTarpusPradziojeIrGale(Mazgas*& galva, Mazgas*& uodega) {
-    // Pağalinimas pradşioje
+    // PaÃ°alinimas pradÃ¾ioje
     while (galva != nullptr && galva->duomenys == ' ') {
         Mazgas* temp = galva;
         galva = galva->kitas;
@@ -49,7 +49,7 @@ void pasalintiTarpusPradziojeIrGale(Mazgas*& galva, Mazgas*& uodega) {
         delete temp;
     }
 
-    // Pağalinimas gale
+    // PaÃ°alinimas gale
     while (uodega != nullptr && uodega->duomenys == ' ') {
         Mazgas* temp = uodega;
         uodega = uodega->ankstesnis;
@@ -61,7 +61,7 @@ void pasalintiTarpusPradziojeIrGale(Mazgas*& galva, Mazgas*& uodega) {
 }
 
 void rastiPirmoZodzioPradziaIrPabaiga(Mazgas* galva, Mazgas*& pirmoPradzia, Mazgas*& pirmoPabaiga) {
-    // Rasti pirmojo şodşio pradşià
+    // Rasti pirmojo Ã¾odÃ¾io pradÃ¾iÃ 
     for (Mazgas* dabartinis = galva; dabartinis != nullptr; dabartinis = dabartinis->kitas) {
         if (dabartinis->duomenys != ' ') {
             pirmoPradzia = dabartinis;
@@ -71,7 +71,7 @@ void rastiPirmoZodzioPradziaIrPabaiga(Mazgas* galva, Mazgas*& pirmoPradzia, Mazg
         }
     }
 
-    // Rasti pirmojo şodşio pabaigà
+    // Rasti pirmojo Ã¾odÃ¾io pabaigÃ 
     if (pirmoPradzia != nullptr) {
         for (Mazgas* dabartinis = pirmoPradzia; dabartinis != nullptr; dabartinis = dabartinis->kitas) {
             if (dabartinis->duomenys == ' ' || dabartinis->kitas->duomenys == ' ') {
@@ -86,18 +86,18 @@ void rastiPirmoZodzioPradziaIrPabaiga(Mazgas* galva, Mazgas*& pirmoPradzia, Mazg
 
 void rastiPaskutinioZodzioPradziaIrPabaiga(Mazgas* galva, Mazgas*& paskutinioPradzia, Mazgas*& paskutinioPabaiga) {
     
-    // Rasti paskutiniojo şodşio pabaigà
+    // Rasti paskutiniojo zodzui pabaiga
     Mazgas* dabartinis = galva;
-    while (dabartinis->kitas != nullptr) { // Eiti iki sàrağo galo
+    while (dabartinis->kitas != nullptr) { // Eiti iki saraso galo
         dabartinis = dabartinis->kitas;
     }
     paskutinioPabaiga = dabartinis;
     cout << "paskutinioPradzia: ";
     cout << paskutinioPabaiga->duomenys << endl;
 
-    // Rasti paskutiniojo şodşio pradşià
+    // Rasti paskutiniojo zodzio pradzia
     while (dabartinis != nullptr) {
-        if (dabartinis->duomenys == ' ' || dabartinis == galva) { // Radome paskutinio şodşio pradşià
+        if (dabartinis->duomenys == ' ' || dabartinis == galva) { // Radome paskutinio zodzio pradzia
             paskutinioPradzia = dabartinis->duomenys == ' ' ? dabartinis->kitas : dabartinis;
             break;
         }
