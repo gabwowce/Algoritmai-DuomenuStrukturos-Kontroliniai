@@ -78,12 +78,12 @@ MedzioMazgas* SalintiMedzioMazga(MedzioMazgas* root, int duomuo) {
         root->right = SalintiMedzioMazga(root->right, duomuo);
     }
     else {
-        // Mazgas neturi vaikø
+        // Mazgas neturi vaiko
         if (root->left == nullptr && root->right == nullptr) {
             delete root;
             return nullptr;
         }
-        // Mazgas turi vienà vaikà
+        // Mazgas turi viena vaika
         else if (root->left == nullptr) {
             MedzioMazgas* temp = root->right;
             delete root;
@@ -102,7 +102,7 @@ MedzioMazgas* SalintiMedzioMazga(MedzioMazgas* root, int duomuo) {
     return root;
 }
 
-// ---  Medzio strukturos spausdinimas --- //
+// ---  Medzio spausdinimas --- //
 int _print_t(MedzioMazgas* tree, int is_left, int offset, int depth, char s[20][255])
 {
     char b[20];
@@ -164,7 +164,7 @@ struct StekoMazgas {
     StekoMazgas* kitas;
 };
 
-// Pridėti elementą į steką
+
 void StekoIterpimas(StekoMazgas*& top, int duomuo) {
     StekoMazgas* newStekoMazgas = new StekoMazgas;
     newStekoMazgas->duomuo = duomuo;
@@ -174,13 +174,13 @@ void StekoIterpimas(StekoMazgas*& top, int duomuo) {
 
 void PerkeltiIVienkryptiSteka(MedzioMazgas* root, StekoMazgas*& top) {
     if (root != nullptr) {
-        PerkeltiIVienkryptiSteka(root->right, top); // Pirma eina per dešinę pusę, kad mažiausias elementas būtų viršuje
-        StekoIterpimas(top, root->duomuo);          // Įdeda root elementą į steką
-        PerkeltiIVienkryptiSteka(root->left, top);  // Toliau eina per kairę pusę
+        PerkeltiIVienkryptiSteka(root->right, top); 
+        StekoIterpimas(top, root->duomuo);          
+        PerkeltiIVienkryptiSteka(root->left, top);  
     }
 }
 
-// Spausdinti steko turinį
+
 void SpausdintiSteka(StekoMazgas* top) {
     while (top != nullptr) {
         cout << top->duomuo << " ";
